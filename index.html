@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TBZ Streaming Services — Diamantes Free Fire y Cuentas de Streaming</title>
+<meta name="description" content="Comprá diamantes para Free Fire y cuentas de streaming (Netflix, Disney+, HBO Max y más) con entrega inmediata y atención por WhatsApp.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="TBZ Streaming Services">
+<meta property="og:description" content="Diamantes para Free Fire y servicios de streaming con entrega inmediata. 100% seguro.">
+<meta property="og:image" content="assets/logo-tbz.png">
+<meta property="og:type" content="website">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#050505">
+<link rel="icon" href="assets/logo-tbz.png">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- AOS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+<!-- Particles.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader"><div class="loader-hex"></div></div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">
+      <img src="assets/logo-tbz.png" alt="TBZ Streaming Services">
+      <span>TBZ</span>
+    </a>
+    <div class="nav-links">
+      <a href="#diamantes">Diamantes</a>
+      <a href="#streaming">Streaming</a>
+      <a href="#grupo-whatsapp">Grupo</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#diamantes" class="nav-cta"><i class="fa-brands fa-whatsapp"></i> Comprar ahora</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top">
+  <div id="hero-canvas"></div>
+  <div class="hero-content">
+    <img src="assets/logo-tbz.png" alt="TBZ Streaming Services" class="hero-logo">
+    <h1>Diamantes y Servicios<br>de Streaming</h1>
+    <p class="sub">Entregas rápidas <span>•</span> 100% Seguro <span>•</span> Atención personalizada</p>
+    <div class="hero-ctas">
+      <a href="#diamantes" class="btn btn-primary"> Ver Diamantes</a>
+      <a href="#streaming" class="btn btn-outline"> Ver Streaming</a>
+      <a href="#sectores-dynamic" class="btn btn-outline"> Ver Artículos</a>
+    </div>
+  </div>
+</header>
+
+<!-- CIRCUIT DIVIDER -->
+<div class="circuit-divider">
+  <svg viewBox="0 0 1280 46" preserveAspectRatio="none">
+    <path d="M0 23 H520 L545 5 H735 L760 23 H1280"></path>
+    <path class="pulse" d="M0 23 H520 L545 5 H735 L760 23 H1280"></path>
+  </svg>
+</div>
+
+<!-- DIAMANTES -->
+<section id="diamantes">
+  <div class="section-head" data-aos="fade-up">
+    <span class="section-eyebrow">Free Fire</span>
+    <h2>Catálogo de Diamantes</h2>
+    <p>Recargas directas a tu ID con bonus incluido. Elegí tu paquete y confirmá por WhatsApp.</p>
+  </div>
+
+  <div class="tab-group" data-aos="fade-up">
+    <button class="tab-btn active" data-tab="panel-limitado">Recarga Limitada</button>
+    <button class="tab-btn" data-tab="panel-ilimitado">Recarga Ilimitada</button>
+  </div>
+
+  <div class="tab-panel active" id="panel-limitado">
+    <div class="diamond-grid" id="grid-limitado"></div>
+    <p style="text-align:center; color:var(--muted); font-size:.78rem; margin-top:18px; font-family:var(--font-mono);">
+      * Cupo máximo: 1 recarga limitada por ID
+    </p>
+  </div>
+  <div class="tab-panel" id="panel-ilimitado">
+    <div class="diamond-grid" id="grid-ilimitado"></div>
+  </div>
+
+  <div style="margin-top:56px;">
+    <h3 style="text-align:center; font-size:1.15rem; margin-bottom:22px; color:var(--muted);" data-aos="fade-up">Otras formas de carga</h3>
+    <div class="extras-row" id="extras-row"></div>
+  </div>
+</section>
+
+<div class="circuit-divider">
+  <svg viewBox="0 0 1280 46" preserveAspectRatio="none">
+    <path d="M1280 23 H760 L735 41 H545 L520 23 H0"></path>
+    <path class="pulse" d="M1280 23 H760 L735 41 H545 L520 23 H0"></path>
+  </svg>
+</div>
+
+<!-- STREAMING -->
+<section id="streaming">
+  <div class="section-head" data-aos="fade-up">
+    <span class="section-eyebrow">Plataformas digitales</span>
+    <h2>Catálogo Streaming</h2>
+    <p>Perfiles y cuentas de las plataformas más usadas, con entrega inmediata tras la confirmación.</p>
+  </div>
+  <div class="stream-grid" id="grid-streaming"></div>
+</section>
+
+<!-- SECTORES PERSONALIZADOS (se generan solos desde admin.html, sin tocar Diamantes/Streaming) -->
+ 
+<div id="sectores-dynamic"></div>
+
+
+
+<!-- BENEFICIOS -->
+<section id="beneficios">
+  <div class="section-head" data-aos="fade-up">
+    <span class="section-eyebrow">Por qué elegirnos</span>
+    <h2>Beneficios TBZ</h2>
+  </div>
+  <div class="benefits-grid">
+    <div class="hex-card benefit-card" data-aos="fade-up">
+      <i class="fa-solid fa-bolt"></i>
+      <h4>Entrega inmediata</h4>
+      <p>Tu compra se procesa apenas se confirma el pago.</p>
+    </div>
+    <div class="hex-card benefit-card" data-aos="fade-up" data-aos-delay="80">
+      <i class="fa-solid fa-shield-halved"></i>
+      <h4>100% Seguro</h4>
+      <p>Operaciones claras y verificadas en cada paso.</p>
+    </div>
+    <div class="hex-card benefit-card" data-aos="fade-up" data-aos-delay="160">
+      <i class="fa-solid fa-headset"></i>
+      <h4>Soporte personalizado</h4>
+      <p>Atención directa por WhatsApp antes y después de tu compra.</p>
+    </div>
+    <div class="hex-card benefit-card" data-aos="fade-up" data-aos-delay="240">
+      <i class="fa-solid fa-award"></i>
+      <h4>Garantía</h4>
+      <p>Respaldo en cada producto entregado.</p>
+    </div>
+    <div class="hex-card benefit-card" data-aos="fade-up" data-aos-delay="320">
+      <i class="fa-solid fa-tags"></i>
+      <h4>Precios competitivos</h4>
+      <p>Los mejores valores del mercado, actualizados.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GRUPO DE WHATSAPP -->
+<section id="grupo-whatsapp">
+  <div class="hex-card group-banner" data-aos="fade-up">
+    <div class="group-banner-icon"><i class="fa-brands fa-whatsapp"></i></div>
+    <div class="group-banner-text">
+      <span class="section-eyebrow" style="margin-bottom:6px;">Comunidad TBZ</span>
+      <h3>Sumate a nuestro grupo de WhatsApp</h3>
+      <p>Sorteos, dinámicas, descuentos exclusivos y precios especiales solo para miembros del grupo. Sumate gratis y no te pierdas ninguna promo.</p>
+    </div>
+    <a href="#" class="btn btn-primary js-group-link" target="_blank">
+      <i class="fa-brands fa-whatsapp"></i> Unirme al grupo
+    </a>
+  </div>
+</section>
+
+<!-- REDES SOCIALES -->
+<section id="redes">
+  <div class="section-head" data-aos="fade-up">
+    <span class="section-eyebrow">Seguinos</span>
+    <h2>Redes Sociales</h2>
+  </div>
+  <div class="social-grid">
+    <a href="#" id="social-instagram" target="_blank" class="hex-card social-card" data-aos="fade-up">
+      <span class="social-icon-badge" style="background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4); color:#fff;"><i class="fa-brands fa-instagram"></i></span>
+      <span>Instagram</span>
+    </a>
+    <a href="#" id="social-tiktok" target="_blank" class="hex-card social-card" data-aos="fade-up" data-aos-delay="80">
+      <span class="social-icon-badge" style="background:#00000055; color:#F4F7FB; border:1px solid rgba(37,244,238,.5);"><i class="fa-brands fa-tiktok"></i></span>
+      <span>TikTok</span>
+    </a>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="section-head" data-aos="fade-up">
+    <span class="section-eyebrow">Ayuda</span>
+    <h2>Preguntas Frecuentes</h2>
+  </div>
+  <div style="max-width:720px; margin:0 auto;" data-aos="fade-up">
+    <div class="faq-item open">
+      <div class="faq-q" tabindex="0">¿Cómo compro? <i class="fa-solid fa-plus"></i></div>
+      <div class="faq-a"><p>Elegís el producto, tocás "Comprar", seleccionás un vendedor y se abre WhatsApp con el pedido ya armado. Solo tenés que confirmar y coordinar el pago.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" tabindex="0">¿Cuánto tarda la entrega? <i class="fa-solid fa-plus"></i></div>
+      <div class="faq-a"><p>La mayoría de los pedidos se entregan en minutos una vez confirmado el pago, dependiendo del producto y el horario.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" tabindex="0">¿Cómo realizo el pago? <i class="fa-solid fa-plus"></i></div>
+      <div class="faq-a"><p>El vendedor te va a indicar el medio de pago disponible directamente por WhatsApp al momento de coordinar tu compra.</p></div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" tabindex="0">¿Qué pasa si tengo un problema? <i class="fa-solid fa-plus"></i></div>
+      <div class="faq-a"><p>Escribinos por WhatsApp y te vamos a ayudar a resolverlo lo antes posible. Tu compra está respaldada por nuestra garantía.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="assets/logo-tbz.png" alt="TBZ Streaming Services">
+    <span class="font-display" style="font-weight:600; letter-spacing:.08em;">TBZ STREAMING SERVICES</span>
+  </div>
+  <div class="footer-links">
+    <a href="#diamantes">Diamantes</a>
+    <a href="#streaming">Streaming</a>
+    <a href="#grupo-whatsapp">Grupo de WhatsApp</a>
+    <a href="#faq">FAQ</a>
+    <a href="#" id="footer-whatsapp">WhatsApp</a>
+    <a href="#" id="footer-instagram">Instagram</a>
+    <a href="#" id="footer-tiktok">TikTok</a>
+  </div>
+  <p class="footer-copy">© <span id="year"></span> TBZ Streaming Services · Todos los derechos reservados</p>
+</footer>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btn" id="wa-float"><i class="fa-brands fa-whatsapp"></i></div>
+<div class="float-btn" id="top-btn"><i class="fa-solid fa-arrow-up"></i></div>
+
+<!-- DATA MODAL (pide datos como el ID antes de armar el mensaje) -->
+<div class="modal-overlay" id="data-modal">
+  <div class="modal-box">
+    <h3 id="data-modal-title">Completá tus datos</h3>
+    <p id="data-modal-subtitle">Necesitamos tu ID para armar el pedido</p>
+    <div style="text-align:left; margin-bottom:18px;">
+      <label for="input-uid" style="display:block; font-family:var(--font-mono); font-size:.72rem; letter-spacing:.05em; color:var(--muted); margin-bottom:6px; text-transform:uppercase;">ID de Free Fire</label>
+      <input type="text" id="input-uid" placeholder="Ej: 123456789" autocomplete="off" inputmode="numeric"
+        style="width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--line); background:rgba(244,247,251,.04); color:var(--white); font-family:var(--font-mono); font-size:.95rem;">
+      <p id="uid-error" style="color:#FF5C5C; font-size:.75rem; margin:6px 0 0; display:none;">Ingresá tu ID antes de continuar.</p>
+    </div>
+    <button class="btn btn-primary" style="width:100%; justify-content:center;" id="data-modal-continue">
+      Continuar <i class="fa-solid fa-arrow-right"></i>
+    </button>
+    <div class="modal-close" id="data-modal-close">Cancelar</div>
+  </div>
+</div>
+
+<!-- PLAN MODAL (elegir perfil / perfil privado / etc segun el servicio) -->
+<div class="modal-overlay" id="plan-modal">
+  <div class="modal-box">
+    <h3 id="plan-modal-title">Elegí un plan</h3>
+    <p id="plan-modal-subtitle">Seleccioná la opción que quieras comprar</p>
+    <div id="plan-options"></div>
+    <div class="modal-close" id="plan-modal-close">Cancelar</div>
+  </div>
+</div>
+
+<!-- SELLER MODAL -->
+<div class="modal-overlay" id="seller-modal">
+  <div class="modal-box">
+    <h3>Elegí un vendedor</h3>
+    <p>Tu pedido se va a abrir directo en WhatsApp</p>
+    <div id="seller-options"></div>
+    <div class="modal-close" id="seller-close">Cancelar</div>
+  </div>
+</div>
+
+<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script src="PRODUCTOS_1.js"></script>
+<script src="script.js"></script>
+<script>
+  // Wire footer social links too, once REDES/wireSocialLinks run
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(() => {
+      document.getElementById("footer-whatsapp").href = REDES.whatsappCanal;
+      document.getElementById("footer-instagram").href = REDES.instagram;
+      document.getElementById("footer-tiktok").href = REDES.tiktok;
+    }, 0);
+  });
+</script>
+</body>
+</html>

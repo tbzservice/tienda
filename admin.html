@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TBZ — Panel de Productos (uso interno)</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+<style>
+  body{ padding-top:0; }
+  .admin-wrap{ max-width:960px; margin:0 auto; padding:40px 20px 100px; }
+  .admin-header{ text-align:center; margin-bottom:10px; }
+  .admin-header h1{ font-size:1.8rem; margin:0 0 8px; }
+  .admin-header p{ color:var(--muted); font-size:.88rem; max-width:560px; margin:0 auto; }
+  .admin-warning{
+    background:rgba(255,176,32,.08); border:1px solid rgba(255,176,32,.35); color:var(--gold);
+    border-radius:12px; padding:14px 18px; font-size:.82rem; margin:24px 0 40px; line-height:1.6;
+  }
+  .admin-section{ margin-bottom:56px; }
+  .admin-section h2{ font-size:1.2rem; margin-bottom:6px; }
+  .admin-section .hint{ color:var(--muted); font-size:.8rem; margin-bottom:20px; }
+  .admin-tabs{ display:flex; gap:10px; margin-bottom:20px; }
+  .admin-tab{ font-family:var(--font-mono); font-size:.78rem; padding:8px 18px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--muted); cursor:pointer; }
+  .admin-tab.active{ background:var(--blue); color:#fff; border-color:var(--blue); }
+  .admin-panel{ display:none; }
+  .admin-panel.active{ display:block; }
+  .admin-row{
+    display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:10px; align-items:center;
+    background:rgba(255,255,255,.03); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:10px;
+  }
+  .admin-row input[type="text"], .admin-row input[type="number"]{
+    width:100%; padding:9px 10px; border-radius:8px; border:1px solid var(--line); background:rgba(244,247,251,.04);
+    color:var(--white); font-family:var(--font-mono); font-size:.85rem;
+  }
+  .admin-row label.chk{ display:flex; align-items:center; gap:6px; font-size:.75rem; color:var(--muted); white-space:nowrap; }
+  .admin-remove{ background:none; border:1px solid rgba(255,92,92,.4); color:#FF5C5C; border-radius:8px; width:34px; height:34px; cursor:pointer; }
+  .admin-remove:hover{ background:rgba(255,92,92,.1); }
+  .admin-add-row{
+    display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:10px; align-items:center;
+    border:1px dashed var(--line); border-radius:12px; padding:12px 14px; margin-top:6px;
+  }
+  .admin-add-row input{ padding:9px 10px; border-radius:8px; border:1px solid var(--line); background:rgba(244,247,251,.04); color:var(--white); font-family:var(--font-mono); font-size:.85rem; }
+  .admin-add-btn{ background:var(--blue); color:#fff; border:none; border-radius:8px; padding:9px 16px; font-size:.8rem; cursor:pointer; white-space:nowrap; }
+  .service-block{ border:1px solid var(--line); border-radius:14px; padding:18px; margin-bottom:16px; background:rgba(255,255,255,.02); }
+  .service-block .service-top{ display:grid; grid-template-columns:1.2fr 1fr 1fr 70px auto; gap:10px; margin-bottom:14px; }
+  .service-block input{ width:100%; padding:9px 10px; border-radius:8px; border:1px solid var(--line); background:rgba(244,247,251,.04); color:var(--white); font-family:var(--font-mono); font-size:.85rem; }
+  .plan-line{ display:grid; grid-template-columns:1.4fr 1fr auto auto; gap:8px; margin-bottom:8px; align-items:center; }
+  .plan-line label.chk{ display:flex; align-items:center; gap:5px; font-size:.72rem; color:var(--muted); white-space:nowrap; }
+  .add-plan-btn, .add-service-btn{ background:transparent; border:1px dashed var(--line); color:var(--neon); border-radius:8px; padding:8px 14px; font-size:.78rem; cursor:pointer; margin-top:4px; }
+  .generate-box{ text-align:center; padding:40px 20px; border-top:1px solid var(--line); margin-top:50px; }
+  .generate-box textarea{
+    width:100%; height:220px; margin-top:20px; background:#0a0e1a; color:#8fd7ff; border:1px solid var(--line);
+    border-radius:12px; padding:16px; font-family:var(--font-mono); font-size:.78rem; resize:vertical;
+  }
+  .col-head{ display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:10px; font-family:var(--font-mono); font-size:.68rem; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; padding:0 14px; margin-bottom:6px; }
+
+  .vendedor-card{
+    border:1px solid var(--line); border-radius:14px; padding:14px 16px 16px; margin-bottom:12px;
+    background:rgba(255,255,255,.02);
+  }
+  .vendedor-card-name{
+    font-family:var(--font-mono); font-size:.8rem; color:var(--neon); letter-spacing:.03em;
+    text-transform:uppercase; margin-bottom:10px;
+  }
+
+  /* Sectores personalizados (secciones nuevas tipo "Plantillas Canva", separadas de Diamantes/Streaming) */
+  .sector-block{
+    border:1px solid var(--line); border-radius:14px; padding:18px; margin-bottom:22px;
+    background:rgba(41,228,255,.03);
+  }
+  .sector-top{ display:grid; grid-template-columns:1.4fr 1fr auto; gap:10px; margin-bottom:12px; }
+  .sector-top input{
+    width:100%; padding:9px 10px; border-radius:8px; border:1px solid var(--line);
+    background:rgba(244,247,251,.04); color:var(--white); font-family:var(--font-mono); font-size:.85rem;
+  }
+  .sector-desc{
+    width:100%; min-height:64px; padding:10px 12px; border-radius:8px; border:1px solid var(--line);
+    background:rgba(244,247,251,.04); color:var(--white); font-family:var(--font-mono); font-size:.82rem;
+    resize:vertical; margin-bottom:14px;
+  }
+  .sector-block .service-block{ background:rgba(255,255,255,.03); }
+  .add-sector-row{
+    display:grid; grid-template-columns:1fr 1fr 1.4fr auto; gap:10px; align-items:start;
+    border:1px dashed var(--line); border-radius:12px; padding:14px; margin-top:6px;
+  }
+  .add-sector-row input, .add-sector-row textarea{
+    width:100%; padding:9px 10px; border-radius:8px; border:1px solid var(--line);
+    background:rgba(244,247,251,.04); color:var(--white); font-family:var(--font-mono); font-size:.85rem;
+  }
+  .add-sector-row textarea{ min-height:38px; resize:vertical; }
+
+  @media (max-width: 760px){
+    .sector-top{ grid-template-columns:1fr; }
+    .add-sector-row{ grid-template-columns:1fr; }
+  }
+
+  /* variantes de columnas (reemplazan estilos inline para que el responsive pueda pisarlas) */
+  .admin-row--5, .admin-add-row--5{ grid-template-columns:1fr 1fr 1fr 1fr 1fr auto; }
+  .admin-row--3, .admin-add-row--3{ grid-template-columns:1fr 1fr auto; }
+
+  @media (max-width: 760px){
+    .admin-wrap{ padding:28px 14px 90px; }
+    .admin-header h1{ font-size:1.45rem; }
+    .admin-tabs{ flex-wrap:wrap; }
+
+    .admin-row, .admin-add-row,
+    .admin-row--5, .admin-add-row--5,
+    .admin-row--3, .admin-add-row--3{
+      grid-template-columns:1fr;
+    }
+    .admin-row label.chk{ margin-top:2px; }
+    .admin-remove{ justify-self:end; }
+
+    .col-head{ display:none; }
+
+    .service-block .service-top{ grid-template-columns:1fr; }
+    .service-block input[type="color"]{ width:100%; }
+    .plan-line{ grid-template-columns:1fr; }
+    .plan-line label.chk{ margin-top:-4px; }
+
+    .generate-box{ padding:32px 14px; }
+    .generate-box textarea{ height:180px; font-size:.72rem; }
+  }
+</style>
+</head>
+<body>
+<div class="admin-wrap">
+
+  <div class="admin-header">
+    <h1 class="font-display">Panel de Productos — TBZ</h1>
+    <p>Editá acá tus diamantes, extras y servicios de streaming sin tocar código. Al final generás el archivo actualizado.</p>
+  </div>
+
+  <div class="admin-warning">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    Esta página es <strong>solo para uso interno tuyo</strong>, no está enlazada desde el sitio público. No modifica la web en vivo directamente: al terminar, descargás el archivo <code>productos.js</code> actualizado y lo subís vos mismo a GitHub para que se reflejen los cambios.
+  </div>
+
+  <!-- DIAMANTES -->
+  <div class="admin-section">
+    <h2>💎 Diamantes</h2>
+    <p class="hint">Recarga Ilimitada y Recarga Limitada.</p>
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-panel="panel-adm-ilimitado">Recarga Ilimitada</button>
+      <button class="admin-tab" data-panel="panel-adm-limitado">Recarga Limitada</button>
+    </div>
+
+    <div class="admin-panel active" id="panel-adm-ilimitado">
+      <div class="col-head"><span>Cantidad</span><span>Precio</span><span>Destacado</span><span></span></div>
+      <div id="admin-list-ilimitado"></div>
+      <div class="admin-add-row">
+        <input type="number" id="new-ilimitado-cantidad" placeholder="Cantidad">
+        <input type="number" id="new-ilimitado-precio" placeholder="Precio">
+        <span></span>
+        <button class="admin-add-btn" onclick="addDiamante('ilimitado')"><i class="fa-solid fa-plus"></i> Agregar</button>
+      </div>
+    </div>
+
+    <div class="admin-panel" id="panel-adm-limitado">
+      <div class="col-head"><span>Cantidad</span><span>Precio</span><span></span><span></span></div>
+      <div id="admin-list-limitado"></div>
+      <div class="admin-add-row">
+        <input type="number" id="new-limitado-cantidad" placeholder="Cantidad">
+        <input type="number" id="new-limitado-precio" placeholder="Precio">
+        <span></span>
+        <button class="admin-add-btn" onclick="addDiamante('limitado')"><i class="fa-solid fa-plus"></i> Agregar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- EXTRAS -->
+  <div class="admin-section">
+    <h2>🧩 Extras (fragmentos, cajas, pases)</h2>
+    <p class="hint">Productos con nombre, detalle, precio y mínimo de compra.</p>
+    <div id="admin-list-extras"></div>
+    <div class="admin-add-row admin-add-row--5">
+      <input type="text" id="new-extra-nombre" placeholder="Nombre">
+      <input type="text" id="new-extra-detalle" placeholder="Detalle">
+      <input type="number" id="new-extra-precio" placeholder="Precio">
+      <input type="text" id="new-extra-unidad" placeholder="Unidad (ej: c/u)">
+      <input type="number" id="new-extra-minimo" placeholder="Mínimo" value="1">
+      <button class="admin-add-btn" onclick="addExtra()"><i class="fa-solid fa-plus"></i></button>
+    </div>
+  </div>
+
+  <!-- STREAMING -->
+  <div class="admin-section">
+    <h2>📺 Servicios de Streaming</h2>
+    <p class="hint">Cada servicio puede tener uno o más planes (ej: Perfil / Perfil privado).</p>
+    <div id="admin-list-streaming"></div>
+    <button class="add-service-btn" onclick="addService()"><i class="fa-solid fa-plus"></i> Agregar nuevo servicio</button>
+  </div>
+
+  <!-- SECTORES PERSONALIZADOS -->
+  <div class="admin-section">
+    <h2>🗂️ Sectores personalizados</h2>
+    <p class="hint">
+      Un "sector" es una sección nueva del sitio, totalmente independiente de Diamantes y Streaming
+      (por ejemplo "Plantillas Canva", "Gift Cards", "Cuentas de juegos", etc). Cada sector tiene su propio
+      título, descripción y productos con planes/precios, igual que Streaming. Se agregan y se muestran
+      solos en el sitio, sin tocar el resto.
+    </p>
+    <div id="admin-list-sectores"></div>
+    <div class="add-sector-row">
+      <input type="text" id="new-sector-titulo" placeholder="Título del sector (ej: Plantillas Canva)">
+      <input type="text" id="new-sector-eyebrow" placeholder="Eyebrow / categoría (ej: Redes Sociales)">
+      <textarea id="new-sector-descripcion" placeholder="Descripción breve del sector"></textarea>
+      <button class="admin-add-btn" onclick="addSector()"><i class="fa-solid fa-plus"></i> Crear sector</button>
+    </div>
+  </div>
+
+  <!-- VENDEDORES -->
+  <div class="admin-section">
+    <h2>🧑‍💼 Vendedores</h2>
+    <p class="hint">Nombre y número de WhatsApp (formato internacional, sin "+" ni espacios, ej: 5492611234567) de cada vendedor que aparece al confirmar una compra.</p>
+    <div id="admin-list-vendedores"></div>
+    <div class="admin-add-row admin-add-row--3">
+      <input type="text" id="new-vendedor-nombre" placeholder="Nombre">
+      <input type="text" id="new-vendedor-numero" placeholder="Número (ej: 5492611234567)">
+      <button class="admin-add-btn" onclick="addVendedor()"><i class="fa-solid fa-plus"></i></button>
+    </div>
+  </div>
+
+  <!-- MENSAJE DE PEDIDO -->
+  <div class="admin-section">
+    <h2>💬 Mensaje de pedido</h2>
+    <p class="hint">Así se arma el mensaje de WhatsApp: Saludo → detalle del producto (automático) → Despedida. El mensaje del botón flotante es aparte, para consultas generales.</p>
+    <div style="display:flex; flex-direction:column; gap:14px; max-width:640px;">
+      <div>
+        <label style="display:block; font-family:var(--font-mono); font-size:.72rem; color:var(--muted); margin-bottom:6px; text-transform:uppercase;">Saludo</label>
+        <input type="text" id="msg-saludo" onchange="updateMensaje('saludo', this.value)"
+          style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:rgba(244,247,251,.04); color:var(--white); font-family:var(--font-mono); font-size:.85rem;">
+      </div>
+      <div>
+        <label style="display:block; font-family:var(--font-mono); font-size:.72rem; color:var(--muted); margin-bottom:6px; text-transform:uppercase;">Frase antes del detalle del producto</label>
+        <input type="text" id="msg-intro" onchange="updateMensaje('intro', this.value)"
+          style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:rgba(244,247,251,.04); color:var(--white); font-family:var(--font-mono); font-size:.85rem;">
+      </div>
+      <div>
+        <label style="display:block; font-family:var(--font-mono); font-size:.72rem; color:var(--muted); margin-bottom:6px; text-transform:uppercase;">Despedida</label>
+        <input type="text" id="msg-despedida" onchange="updateMensaje('despedida', this.value)"
+          style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:rgba(244,247,251,.04); color:var(--white); font-family:var(--font-mono); font-size:.85rem;">
+      </div>
+      <div>
+        <label style="display:block; font-family:var(--font-mono); font-size:.72rem; color:var(--muted); margin-bottom:6px; text-transform:uppercase;">Mensaje del botón flotante (consulta general)</label>
+        <input type="text" id="msg-consulta" onchange="updateMensaje('consulta', this.value)"
+          style="width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--line); background:rgba(244,247,251,.04); color:var(--white); font-family:var(--font-mono); font-size:.85rem;">
+      </div>
+    </div>
+  </div>
+
+  <!-- GENERAR -->
+  <div class="generate-box">
+    <button class="btn btn-primary" onclick="generarArchivo()">
+      <i class="fa-solid fa-file-arrow-down"></i> Generar productos.js actualizado
+    </button>
+    <p class="hint" style="margin-top:14px;">Se descarga el archivo y también lo ves acá abajo para copiar si preferís.</p>
+    <textarea id="output-code" readonly placeholder="Acá va a aparecer el código generado..."></textarea>
+  </div>
+
+</div>
+
+<script src="PRODUCTOS_1.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

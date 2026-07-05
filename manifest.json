@@ -1,0 +1,12 @@
+{
+  "name": "TBZ Streaming Services",
+  "short_name": "TBZ",
+  "description": "Diamantes para Free Fire y servicios de streaming con entrega inmediata.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#050505",
+  "theme_color": "#050505",
+  "icons": [
+    { "src": "assets/logo-tbz.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
