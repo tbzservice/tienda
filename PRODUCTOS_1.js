@@ -336,7 +336,7 @@ const PRODUCTOS = {
   eyebrow: "Redes Sociales",
 
   descripcion:
-    "Packs de seguidores para Instagram. Modificá cantidades y precios fácilmente desde este catálogo.",
+    "Aumentá tu presencia en Instagram con packs de seguidores de alta calidad, entrega rápida y precios accesibles.",
 
   items: [
     {
